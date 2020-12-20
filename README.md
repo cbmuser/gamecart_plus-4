@@ -17,8 +17,11 @@ Invaders
 The Makefile is for a build and run on Linux 64 bit.
 
 make all - creates bins
+
 make run - launches Vice xplus4 with attached roms
+
 make clean - deletes bins
+
 
 ACME Cross-Assembler: https://sourceforge.net/projects/acme-crossass/
 
