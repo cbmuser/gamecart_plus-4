@@ -6,9 +6,13 @@
 Four classical games für the Commodore 16 and Plus/4 in one Cartridge using the standard PCB. The selection is driven by a menu. 
 
 Kikstart
+
 Scramble
+
 Galaxy
+
 Invaders
+
 
 The Makefile is for a build and run on Linux 64 bit.
 
