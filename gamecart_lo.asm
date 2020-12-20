@@ -52,7 +52,6 @@ cartrige:
                  lda #$ff               
                  sta $ff0c
                  sta $ff0d           ; hide cursor
-
                  lda #$00
                  sta tedback
                  sta tedborder
@@ -87,7 +86,6 @@ cartrige:
                  sta t_hi
                  lda #$94
                  sta t_lo    
-
                  lda #$71
                  ldx #$00
 -                sta $07ff,x   
@@ -122,7 +120,7 @@ keys:
                  sta $fd30
                  sta $ff08 
                  lda $ff08
-                 and #$10              ; space to select
+                 and #$10              ; space to move
                  beq down
                  jmp keys
 ;--------------------------------------------------
@@ -156,7 +154,6 @@ down:           inc row
                 inc s_hi
 +               cpy #$20
                 bne -  
-
                 lda #$00
                 sta row  
                 jmp delay 
@@ -194,7 +191,7 @@ delay:
                 ldy #$00
 -               inx
                 bne - 
-d1:             iny
+                iny
                 cpy #$80
                 bne -                    
                 jmp keys                  
@@ -269,7 +266,6 @@ scramble_cpy     ldy #$00         ; copy
                  lda #$1d
                  sta blocks 
                  jsr copy  
-
 copy:            lda (s_lo),y     ; copy game or tool to ram 
                  sta (t_lo),y
                  iny
@@ -349,15 +345,13 @@ rom1_tcopy:
 -                lda rom1_trampolin,x
                  sta tapebuf,x
                  inx     
-                 cpx #$1a
-                
+                 cpx #$1a               
                  bne -      
 -                lda trampolin,y
                  sta tapebuf,x
                  inx
                  iny
-                 cpx #$5a
-                
+                 cpx #$5a               
                  bne -      
                  jmp tapebuf
 ;--- switch rom hi and copy game ro ram
