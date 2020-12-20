@@ -1,5 +1,8 @@
 # gamecart_plus-4
 
+![Screenshot](http://www.cbmhardware.de/images/4gamescrt.jpg)
+
+
 Four classical games für the Commodore 16 and Plus/4 in one Cartridge using the standard PCB. The selection is driven by a menu. 
 
 Kikstart
