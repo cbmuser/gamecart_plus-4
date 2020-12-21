@@ -1,6 +1,6 @@
 # gamecart_plus-4
 
-![Screenshot](http://www.cbmhardware.de/images/4gamescrt.jpg)
+![Screenshot](http://www.cbmhardware.de/images/4games.jpg)
 
 
 Four classical games for the Commodore 16 and Plus/4 in one Cartridge using the standard PCB. The selection is driven by a menu. 
