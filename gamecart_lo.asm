@@ -86,6 +86,7 @@ cartrige:
                  sta t_hi
                  lda #$94
                  sta t_lo    
+
                  lda #$71
                  ldx #$00
 -                sta $07ff,x   
@@ -154,6 +155,7 @@ down:           inc row
                 inc s_hi
 +               cpy #$20
                 bne -  
+
                 lda #$00
                 sta row  
                 jmp delay 
@@ -209,10 +211,10 @@ maincreen:
 !scr "                                        "                 
 !scr "                                        "                 
 !scr "                                        "                 
-!scr "               kikstart                 "                 
-!scr "               scramble                 "                 
+!scr "               moonbuggy                "                 
 !scr "               galaxy                   "                 
 !scr "               invaders                 "                 
+!scr "               kikstart                 "                 
 !scr "                                        "                 
 !scr "                                        "                 
 !scr "                                        "                 
@@ -227,19 +229,33 @@ maincreen:
 ;---game select by row
 gamecpy:         lda row
                  cmp #$00
-                 beq kikstart_cpy
+                 beq moonbuggy_cpy
                  cmp #$01
-                 beq scramble_cpy
-                 cmp #$02
                  beq glxy
-                 cmp #$03
+                 cmp #$02
                  beq inv
+                 cmp #$03
+                 beq kikstart_copy
                  jmp keys
 glxy:            jmp rom1_galaxy
 inv:             jmp rom1_invaders
 
 ;---copy games rom lo
-kikstart_cpy     ldy #$00         ; copy 
+moonbuggy_cpy    ldy #$00         ; copy 
+                 ldx #$00
+                 lda #$10
+                 sta t_hi  
+                 lda #$01
+                 sta t_lo  
+                 lda #>moonbuggy
+                 sta s_hi  
+                 lda #<moonbuggy
+                 sta s_lo  
+                 lda #$20
+                 sta blocks 
+                 jsr copy  
+
+kikstart_copy:   ldy #$00         ; copy 
                  ldx #$00
                  lda #$10
                  sta t_hi  
@@ -253,19 +269,10 @@ kikstart_cpy     ldy #$00         ; copy
                  sta blocks 
                  jsr copy  
 
-scramble_cpy     ldy #$00         ; copy 
-                 ldx #$00
-                 lda #$10
-                 sta t_hi  
-                 lda #$01
-                 sta t_lo  
-                 lda #>scramble
-                 sta s_hi  
-                 lda #<scramble
-                 sta s_lo  
-                 lda #$1d
-                 sta blocks 
-                 jsr copy  
+
+
+
+
 copy:            lda (s_lo),y     ; copy game or tool to ram 
                  sta (t_lo),y
                  iny
@@ -345,13 +352,13 @@ rom1_tcopy:
 -                lda rom1_trampolin,x
                  sta tapebuf,x
                  inx     
-                 cpx #$1a               
+                 cpx #$1a              
                  bne -      
 -                lda trampolin,y
                  sta tapebuf,x
                  inx
                  iny
-                 cpx #$5a               
+                 cpx #$5a                
                  bne -      
                  jmp tapebuf
 ;--- switch rom hi and copy game ro ram
@@ -370,11 +377,10 @@ rom1copy:        lda (s_lo),y     ; copy game or tool to ram
                  inx          
                  cpx blocks
                  bne rom1copy  
-
+moonbuggy:
+!bin "games/moonbuggy.prg",,2                                  
 kikstart:
-!bin "games/kikstart.prg",,2                 
-scramble:
-!bin "games/scramble.prg",,2                                  
+!bin "games/kikstart.prg",,2                                  
 *=$bfff
 !by $00                 
 
